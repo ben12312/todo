@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { replaceTodo, deleteTodo } from '../store/action';
+import { Button, Table, Flex, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
 
 export default function Todo() {
     const dispatch = useDispatch();
@@ -34,22 +35,22 @@ export default function Todo() {
 
     return (
         <>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Title</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Done</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <Table>
+                <Thead>
+                    <Tr>
+                        <Th scope="col">Title</Th>
+                        <Th scope="col">Status</Th>
+                        <Th scope="col">Done</Th>
+                    </Tr>
+                </Thead>
+                <Tbody>
                     {
                         todos?.map(todo => {
                             return (
-                                <tr>
-                                    <td>{todo.title}</td>
-                                    <td>{todo.status}</td>
-                                    <th scope="row">
+                                <Tr>
+                                    <Td>{todo.title}</Td>
+                                    <Td>{todo.status}</Td>
+                                    <Td scope="row">
                                         <div className="form-check">
                                             <input
                                                 className="form-check-input"
@@ -58,16 +59,18 @@ export default function Todo() {
                                                 checked={todo.status === 'done'}
                                             />
                                         </div>
-                                    </th>
-                                </tr>
+                                    </Td>
+                                </Tr>
                             )
                         })
                     }
-                </tbody>
-            </table>
-            <button onClick={() => doneButton()} type="button" className="btn btn-secondary btn-sm">See Done Todo</button>
-            <button onClick={() => showAll()} type="button" className="btn btn-secondary btn-sm" style={{ marginLeft: '2cm' }}>Show All Todo</button>
-            <button onClick={() => deleteButton()} type="button" className="btn btn-danger btn-sm" style={{ marginLeft: '2cm' }}>Delete done Todo</button>
+                </Tbody>
+            </Table>
+            <Flex marginTop="2cm">
+                <Button onClick={() => doneButton()} colorScheme="teal" size="sm">See Done Todo</Button>
+                <Button onClick={() => showAll()} colorScheme="teal" size="sm" marginLeft="1cm">Show All Todo</Button>
+                <Button onClick={() => deleteButton()} colorScheme="red" size="sm" marginLeft="1cm">Delete done Todo</Button>
+            </Flex>
         </>
     )
 }
